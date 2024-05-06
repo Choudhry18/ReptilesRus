@@ -2,7 +2,7 @@ const productModel = require('../models/productModel')
 
 async function loadProducts(req, res){
     try {
-        const products = await productModel.getProducts();
+        const products = await productModel.getProducts(false);
         res.render('productListing', { products})
     } catch (error) {
         // Handle database query errors
@@ -54,18 +54,9 @@ async function updateProduct(req, res){
     }
 }
 
-async function addProduct(req, res){
-    console.log(req.session.secret)
-    if(!req.session.isPopulated && req.session.secret === "admin"){
-        res.render("addProduct");
-    }
-}
-
-
 module.exports = {
     loadProducts,
     productDetail,
     editProduct,
     updateProduct,
-    addProduct
 }
